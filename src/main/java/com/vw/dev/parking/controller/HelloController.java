@@ -10,7 +10,7 @@ public class HelloController {
 	
 	@GetMapping
 	public String hello() {
-		return System.getenv("Language");
+		return "Hello, devs!";
 		
 	}
 }
