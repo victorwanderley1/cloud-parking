@@ -11,6 +11,20 @@ public class Parking {
 	private LocalDateTime entryDate;
 	private LocalDateTime exitDate;
 	private Double bill;
+	
+	public Parking() {
+		super();
+	}
+
+	public Parking(String id, String license, String state, String model, String color) {
+		super();
+		this.id = id;
+		this.license = license;
+		this.state = state;
+		this.model = model;
+		this.color = color;
+	}
+	
 	public String getId() {
 		return id;
 	}
@@ -26,6 +40,7 @@ public class Parking {
 	public String getState() {
 		return state;
 	}
+	
 	public void setState(String state) {
 		this.state = state;
 	}
