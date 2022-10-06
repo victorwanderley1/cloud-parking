@@ -4,9 +4,11 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -43,7 +45,7 @@ public class ParkingController {
 	
 	@GetMapping("/{id}")
 	@ApiOperation("Find by Id")
-	public ResponseEntity<ParkingDTO> findById(@PathVariable("id") String id){
+	public ResponseEntity<ParkingDTO> findById(@PathVariable String id){
 		ParkingDTO parkingDTO = parkingMapper.toParkingDTO(parkingService.findById(id));
 		return ResponseEntity.ok(parkingDTO);
 	}
@@ -53,5 +55,19 @@ public class ParkingController {
 	public ResponseEntity<ParkingDTO> insert(@RequestBody ParkingCreateDTO parkingDTO){
 		Parking parkingCreated = parkingService.insert(parkingMapper.toParking(parkingDTO));
 		return ResponseEntity.status(HttpStatus.CREATED).body(parkingMapper.toParkingDTO(parkingCreated));
+	}
+	
+	@PutMapping("/{id}")
+	@ApiOperation("Updating a Parking registry")
+	public ResponseEntity<ParkingDTO> update(@PathVariable String id, @RequestBody ParkingCreateDTO parkingDTO){
+		Parking parkingCreated = parkingService.update(id, parkingMapper.toParking(parkingDTO));
+		return ResponseEntity.ok(parkingMapper.toParkingDTO(parkingCreated));
+	}
+	
+	@DeleteMapping("/{id}")
+	@ApiOperation("Delete by Id")
+	public ResponseEntity delete(@PathVariable String id){
+		parkingService.delete(id);
+		return ResponseEntity.noContent().build();
 	}
 }
