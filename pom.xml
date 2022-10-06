@@ -14,6 +14,9 @@
 	<description>This project is a Digital Innovation One&apos;s lab. This is a study project.</description>
 	<properties>
 		<java.version>11</java.version>
+		<springfox-swagger.version>2.9.2</springfox-swagger.version>
+		<modelmapper.version>3.1.0</modelmapper.version>
+		<postgres.version>42.5.0</postgres.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -21,6 +24,16 @@
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 		
+		<!-- Database -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>${postgres.version}</version>
+		</dependency>	
 		<!-- Tests -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -43,18 +56,18 @@
 		<dependency>
 			<groupId>org.modelmapper</groupId>
 			<artifactId>modelmapper</artifactId>
-			<version>3.1.0</version>
+			<version>${modelmapper.version}</version>
 		</dependency>
 		<!-- Swagger/OpenAPI -->
 		<dependency>
 			<groupId>io.springfox</groupId>
 			<artifactId>springfox-swagger2</artifactId>
-			<version>2.9.2</version>
+			<version>${springfox-swagger.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>io.springfox</groupId>
 			<artifactId>springfox-swagger-ui</artifactId>
-			<version>2.9.2</version>
+			<version>${springfox-swagger.version}</version>
 		</dependency>
 
 	</dependencies>
