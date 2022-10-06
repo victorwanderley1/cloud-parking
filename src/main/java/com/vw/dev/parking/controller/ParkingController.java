@@ -17,8 +17,12 @@ import com.vw.dev.parking.controller.mapper.ParkingMapper;
 import com.vw.dev.parking.entity.Parking;
 import com.vw.dev.parking.service.ParkingService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
 @RestController
 @RequestMapping("/parking")
+@Api(tags = "Parking Controller")
 public class ParkingController {
 	
 	private final ParkingService parkingService;
@@ -30,6 +34,7 @@ public class ParkingController {
 	}
 
 	@GetMapping
+	@ApiOperation("Find All Parkings")
 	public ResponseEntity<List<ParkingDTO>> findAll(){
 		List<Parking> parkings = parkingService.findAll();
 		List<ParkingDTO> parkingDTOs = parkingMapper.toParkingDTOList(parkings);
@@ -37,12 +42,14 @@ public class ParkingController {
 	}
 	
 	@GetMapping("/{id}")
+	@ApiOperation("Find by Id")
 	public ResponseEntity<ParkingDTO> findById(@PathVariable("id") String id){
 		ParkingDTO parkingDTO = parkingMapper.toParkingDTO(parkingService.findById(id));
 		return ResponseEntity.ok(parkingDTO);
 	}
 	
 	@PostMapping
+	@ApiOperation("Insert a new Parking registry")
 	public ResponseEntity<ParkingDTO> insert(@RequestBody ParkingCreateDTO parkingDTO){
 		Parking parkingCreated = parkingService.insert(parkingMapper.toParking(parkingDTO));
 		return ResponseEntity.status(HttpStatus.CREATED).body(parkingMapper.toParkingDTO(parkingCreated));
