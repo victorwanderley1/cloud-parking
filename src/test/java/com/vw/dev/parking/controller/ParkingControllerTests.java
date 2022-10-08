@@ -1,9 +1,12 @@
 package com.vw.dev.parking.controller;
 
 import org.hamcrest.Matchers;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.TestInstance.Lifecycle;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.web.server.LocalServerPort;
@@ -11,18 +14,26 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
 import com.vw.dev.parking.controller.dto.ParkingCreateDTO;
+import com.vw.dev.parking.repository.ParkingRepository;
 
 import io.restassured.RestAssured;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
-public class ParkingControllerTests {
+@TestInstance(Lifecycle.PER_CLASS)
+class ParkingControllerTests extends AbstractContainerBase{
 
 	@LocalServerPort
 	private int randomPort;
-
+	@Autowired
+	private ParkingRepository repository;
 	@BeforeEach
 	void setUpTest() {
 		RestAssured.port = randomPort;
+	}
+	
+	@AfterAll
+	void finallyTests() {
+		repository.deleteAll();
 	}
 
 	@Test

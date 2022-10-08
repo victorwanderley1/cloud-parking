@@ -17,6 +17,7 @@
 		<springfox-swagger.version>2.9.2</springfox-swagger.version>
 		<modelmapper.version>3.1.0</modelmapper.version>
 		<postgres.version>42.5.0</postgres.version>
+		<testContainers.version>1.17.5</testContainers.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -32,7 +33,7 @@
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
-			<version>${postgres.version}</version>
+			<version>${postgres.version}</version><!--$NO-MVN-MAN-VER$-->
 		</dependency>	
 		<!-- Tests -->
 		<dependency>
@@ -44,6 +45,12 @@
 			<groupId>io.rest-assured</groupId>
 			<artifactId>rest-assured</artifactId>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.testcontainers</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>${testContainers.version}</version>	
+			<scope>test</scope>	
 		</dependency>
 		
 		<!-- Utils -->
