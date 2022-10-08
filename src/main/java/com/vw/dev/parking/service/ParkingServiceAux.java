@@ -13,9 +13,9 @@ public class ParkingServiceAux {
 	private static ParkingServiceAux parkingServiceAux;
 	private static int ONE_HOUR = 60;
 	private static int TWENTY_FOUR_HOUR = 24*ONE_HOUR;
-	private static Double ONE_HOUR_VALUE = 5.00;
-	private static Double ADDITIONAL_PER_HOUR_VALUE = 2.00;
-	private static Double DAY_VALUE = 20.00;
+	public final static Double ONE_HOUR_VALUE = 5.00;
+	public final static Double ADDITIONAL_PER_HOUR_VALUE = 2.00;
+	public final static Double DAY_VALUE = 20.00;
 	private Parking parking;
 	
 	public static ParkingServiceAux getInstance() {
@@ -37,7 +37,7 @@ public class ParkingServiceAux {
 	private Double calcBill(Long minutes) {
 		if(minutes <= ONE_HOUR) {
 			return ONE_HOUR_VALUE;
-		}else if (minutes <= TWENTY_FOUR_HOUR){
+		}else if (minutes < TWENTY_FOUR_HOUR){
 			int hours = (int) (minutes/ONE_HOUR);
 			return (Double) ONE_HOUR_VALUE+(ADDITIONAL_PER_HOUR_VALUE*(hours));
 		}else {
