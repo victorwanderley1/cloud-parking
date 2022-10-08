@@ -1,5 +1,7 @@
 package com.vw.dev.parking.controller;
 
+import java.time.LocalDateTime;
+
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -39,8 +41,8 @@ class ParkingControllerTests extends AbstractContainerBase{
 	@Test
 	void whenFindAllCheckResult() {
 		ParkingCreateDTO parkingCreateDTO = new ParkingCreateDTO();
-		parkingCreateDTO.setLicense("WM233K2");
-		parkingCreateDTO.setModel("Corsa");
+		parkingCreateDTO.setLicense("HJ236R3");
+		parkingCreateDTO.setModel("Clio");
 		parkingCreateDTO.setColor("Verde");
 		parkingCreateDTO.setState("RN");
 
@@ -48,16 +50,16 @@ class ParkingControllerTests extends AbstractContainerBase{
 				.post("/parking");
 
 		RestAssured.given().when().get("/parking").then().statusCode(HttpStatus.OK.value()).body("license",
-				Matchers.hasItem("AB123C4"));
+				Matchers.hasItem("HJ236R3"));
 	}
 
 	@Test
 	void whenFindByIdCheckResult() {
 		ParkingCreateDTO parkingCreateDTO = new ParkingCreateDTO();
 		parkingCreateDTO.setLicense("WM233K2");
-		parkingCreateDTO.setModel("Corsa");
-		parkingCreateDTO.setColor("Verde");
-		parkingCreateDTO.setState("RN");
+		parkingCreateDTO.setModel("Gol");
+		parkingCreateDTO.setColor("Branco");
+		parkingCreateDTO.setState("BA");
 
 		String id = RestAssured.given().when().body(parkingCreateDTO).contentType(MediaType.APPLICATION_JSON_VALUE)
 				.post("/parking").then().extract().body().jsonPath().get("id");
@@ -88,9 +90,9 @@ class ParkingControllerTests extends AbstractContainerBase{
 	@Test
 	void whenDeleteThenCheckResult() {
 		ParkingCreateDTO parkingCreateDTO = new ParkingCreateDTO();
-		parkingCreateDTO.setLicense("WM233K2");
-		parkingCreateDTO.setModel("Corsa");
-		parkingCreateDTO.setColor("Verde");
+		parkingCreateDTO.setLicense("ET753B1");
+		parkingCreateDTO.setModel("Palio");
+		parkingCreateDTO.setColor("Cinza");
 		parkingCreateDTO.setState("RN");
 		
 		String id = RestAssured.given()
@@ -121,5 +123,28 @@ class ParkingControllerTests extends AbstractContainerBase{
 			.put("/parking/{id}", id)
 			.then().statusCode(HttpStatus.OK.value())
 			.body("color", Matchers.equalTo("Verde Lodo"));
+	}
+	
+	@Test
+	void whenCheckOutCheckResult() {
+		ParkingCreateDTO parkingCreateDTO = new ParkingCreateDTO();
+		parkingCreateDTO.setLicense("WM783V3");
+		parkingCreateDTO.setModel("Meriva");
+		parkingCreateDTO.setColor("Prata");
+		parkingCreateDTO.setState("RN");
+		LocalDateTime time = LocalDateTime.now();
+		
+		String id = RestAssured.given()
+		.when().contentType(MediaType.APPLICATION_JSON_VALUE)
+		.body(parkingCreateDTO).post("/parking")
+		.then().statusCode(HttpStatus.CREATED.value())
+		.extract().body().jsonPath().get("id");
+		
+		RestAssured.given()
+		.when().param("id", id).patch("/parking")
+		.then().statusCode(HttpStatus.OK.value())
+		.body("bill", Matchers.notNullValue())
+		.and().body("exitDate", Matchers.greaterThan(time));
+		
 	}
 }
