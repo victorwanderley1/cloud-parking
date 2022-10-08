@@ -1,6 +1,8 @@
 # Cloud Parking
 ### Este projeto é um projeto de estudo baseado no desafio da Digital Innovation One onde é sugerido o gerenciamento de um estacionamento.
 
+[![Java CI with Maven](https://github.com/victorwanderley1/cloud-parking/actions/workflows/maven.yml/badge.svg)](https://github.com/victorwanderley1/cloud-parking/actions/workflows/maven.yml)
+
 ## Foram utilizadas os seguintes recursos e práticas:
 - Spring Web
 - Spring Security
