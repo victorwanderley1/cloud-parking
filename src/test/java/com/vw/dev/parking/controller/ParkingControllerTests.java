@@ -132,7 +132,6 @@ class ParkingControllerTests extends AbstractContainerBase{
 		parkingCreateDTO.setModel("Meriva");
 		parkingCreateDTO.setColor("Prata");
 		parkingCreateDTO.setState("RN");
-		LocalDateTime time = LocalDateTime.now();
 		
 		String id = RestAssured.given()
 		.when().contentType(MediaType.APPLICATION_JSON_VALUE)
